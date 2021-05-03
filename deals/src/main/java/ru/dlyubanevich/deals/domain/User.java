@@ -1,4 +1,4 @@
-package ru.dlyubanevich.offers.domain;
+package ru.dlyubanevich.deals.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

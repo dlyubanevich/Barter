@@ -1,2 +1,6 @@
-package ru.dlyubanevich.nomenclatures.domain;public enum Type {
+package ru.dlyubanevich.nomenclatures.domain;
+
+public enum Type {
+    SERVICE,
+    PRODUCT
 }

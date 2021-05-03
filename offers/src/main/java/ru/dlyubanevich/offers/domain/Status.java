@@ -1,2 +1,7 @@
-package ru.dlyubanevich.offers.domain;public enum Status {
+package ru.dlyubanevich.offers.domain;
+
+public enum Status {
+    NEW,
+    AGREED,
+    CANCELED
 }

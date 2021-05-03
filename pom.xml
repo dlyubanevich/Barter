@@ -15,6 +15,7 @@
         <module>deals</module>
         <module>offers</module>
         <module>nomenclatures</module>
+        <module>notifications</module>
     </modules>
 
 </project>
