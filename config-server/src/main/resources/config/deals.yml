@@ -1,0 +1,6 @@
+server:
+  port: 9004
+
+eureka:
+  client:
+    fetch-registry: true

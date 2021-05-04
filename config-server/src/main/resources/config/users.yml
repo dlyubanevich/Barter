@@ -1,0 +1,15 @@
+spring:
+  data:
+    mongodb:
+      database: barter-users
+      host: localhost
+      port: 27017
+  application:
+    name: users
+
+server:
+  port: 9001
+
+#eureka:
+#  client:
+#    fetch-registry: true

@@ -1,6 +1,6 @@
 spring:
   application:
-    name: nomenclatures
+    name: deals
   cloud:
     config:
       fail-fast: true

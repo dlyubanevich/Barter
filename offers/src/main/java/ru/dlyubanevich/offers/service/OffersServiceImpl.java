@@ -54,7 +54,7 @@ public class OffersServiceImpl implements OffersService {
     @Transactional
     @Override
     public List<OfferRequest> getAllActiveOfferRequest() {
-        return null;
+        return offerRequestService.findAllActiveOffers();
     }
 
     @Transactional
