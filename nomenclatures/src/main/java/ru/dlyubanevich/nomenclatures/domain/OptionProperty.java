@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @NoArgsConstructor
 @AllArgsConstructor
 @Document(collection = "properties")
-public class OptionProperties {
+public class OptionProperty {
 
     @Id
     private String id;

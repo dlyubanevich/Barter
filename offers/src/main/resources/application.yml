@@ -1,0 +1,21 @@
+spring:
+  data:
+    mongodb:
+      database: barter-offers
+      host: localhost
+      port: 27017
+  application:
+    name: offer-service
+
+logging:
+  level:
+    root: ERROR
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+server:
+  port: 9002

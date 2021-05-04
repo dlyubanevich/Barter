@@ -1,0 +1,21 @@
+spring:
+  data:
+    mongodb:
+      database: barter-nomenclatures
+      host: localhost
+      port: 27017
+  application:
+    name: nomenclature-service
+
+logging:
+  level:
+    root: ERROR
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+server:
+  port: 9003

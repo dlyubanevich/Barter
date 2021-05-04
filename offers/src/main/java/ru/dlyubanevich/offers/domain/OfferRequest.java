@@ -20,9 +20,10 @@ public class OfferRequest {
     private List<Nomenclature> items;
     private Location location;
     private String description;
-    private OfferType type;
+    private String type;
     private OfferOption option;
     private List<Requirement> requirements;
-    private Status status;
+    private String status;
+    private String discussionId;
 
 }

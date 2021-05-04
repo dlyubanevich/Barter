@@ -10,6 +10,6 @@ public class Nomenclature {
     private final String id;
     private final String name;
     private final NomenclatureOption option;
-    private final int type;
+    private final String type;
 
 }

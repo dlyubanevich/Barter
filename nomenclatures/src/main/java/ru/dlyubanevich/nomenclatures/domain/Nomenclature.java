@@ -18,9 +18,10 @@ public class Nomenclature {
     private String id;
     private String name;
     private User owner;
-    private Type type;
+    private String type;
     private NomenclatureOption option;
     private List<NomenclatureProperty> properties;
+    private List<String> photos;
     private String description;
     private double rating;
 

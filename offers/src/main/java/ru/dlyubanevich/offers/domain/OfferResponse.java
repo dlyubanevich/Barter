@@ -22,5 +22,6 @@ public class OfferResponse {
     private Location location;
     private OfferOption option;
     private String description;
+    private String discussionId;
 
 }

@@ -1,19 +1,17 @@
 package ru.dlyubanevich.offers.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import java.util.ArrayList;
+import java.util.List;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Document(collection = "types")
 public class OfferType {
 
-    @Id
-    private String id;
-    private String name;
+    private final static String DEMAND = "Спрос";
+    private final static String PROPOSAL = "Предложение";
 
+    public static List<String> getAll(){
+        List<String> list = new ArrayList<>();
+        list.add(DEMAND);
+        list.add(PROPOSAL);
+        return list;
+    }
 }
