@@ -32,6 +32,5 @@ public class OfferRequestServiceImpl implements OfferRequestService{
     @Override
     public List<OfferRequest> findAllActiveOffers() {
         return offerRequestRepository.findAllByStatusIn(Status.getAllActiveStatuses());
-        //return offerRequestRepository.findAll();
     }
 }

@@ -12,6 +12,8 @@
 
     <modules>
         <module>config-server</module>
+        <module>discovery-server</module>
+        <module>offer-processing-service</module>
         <module>users</module>
         <module>deals</module>
         <module>offers</module>

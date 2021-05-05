@@ -4,13 +4,3 @@ spring:
   cloud:
     config:
       fail-fast: true
-
-logging:
-  level:
-    root: INFO
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"

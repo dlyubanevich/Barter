@@ -1,0 +1,15 @@
+server:
+  port: 8761
+
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+  server:
+    wait-time-in-ms-when-sync-empty: 5
+    registry-sync-retries: 3
+    eviction-interval-timer-in-ms: 15000
+  instance:
+    leaseRenewalIntervalInSeconds: 30
+    leaseExpirationDurationInSecond: 30
+

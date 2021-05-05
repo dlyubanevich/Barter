@@ -25,6 +25,7 @@ public class OffersServiceImpl implements OffersService {
         OfferDiscussion discussion = new OfferDiscussion();
         offerDiscussionService.save(discussion);
         offerRequest.setDiscussionId(discussion.getId());
+        offerRequest.setStatus(Status.NEW);
         return offerRequestService.save(offerRequest);
     }
 
