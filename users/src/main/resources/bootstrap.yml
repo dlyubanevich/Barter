@@ -1,6 +1,0 @@
-spring:
-  application:
-    name: users
-  cloud:
-    config:
-      fail-fast: true

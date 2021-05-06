@@ -22,4 +22,8 @@ public class DataRequest {
     private String description;
     private List<Requirement> requirements;
 
+    public List<Nomenclature> getItems(){
+        items.forEach(nomenclature -> nomenclature.setOwner(user));
+        return items;
+    }
 }

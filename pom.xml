@@ -14,11 +14,11 @@
         <module>config-server</module>
         <module>discovery-server</module>
         <module>offer-processing-service</module>
-        <module>users</module>
-        <module>deals</module>
-        <module>offers</module>
-        <module>nomenclatures</module>
-        <module>notifications</module>
+        <module>user-microservice</module>
+        <module>deal-microservice</module>
+        <module>offer-microservice</module>
+        <module>nomenclature-microservice</module>
+        <module>notification-microservice</module>
     </modules>
 
 </project>

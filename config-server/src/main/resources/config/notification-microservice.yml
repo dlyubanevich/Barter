@@ -1,0 +1,25 @@
+spring:
+  data:
+    mongodb:
+      database: barter-notifications
+      host: localhost
+      port: 27017
+  application:
+    name: notification-microservice
+
+logging:
+  level:
+    root: INFO
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+server:
+  port: 9005
+
+eureka:
+  client:
+    fetch-registry: true

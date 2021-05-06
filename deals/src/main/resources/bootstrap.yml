@@ -1,6 +1,0 @@
-spring:
-  application:
-    name: deals
-  cloud:
-    config:
-      fail-fast: true
