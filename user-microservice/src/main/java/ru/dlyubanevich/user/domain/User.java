@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,6 +20,9 @@ public class User {
     private String phoneNumber;
     private String email;
     private String gender;
-    private UserDetails userDetails;
+    private String avatar;
+    private UserDetails details;
+    private UserSettings settings;
+    private List<Nomenclature> items;
 
 }

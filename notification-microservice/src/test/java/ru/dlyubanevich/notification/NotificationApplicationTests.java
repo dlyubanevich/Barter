@@ -1,13 +1,9 @@
 package ru.dlyubanevich.notification;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.TestConfiguration;
 
-@SpringBootTest
-class NotificationApplicationTests {
+@TestConfiguration
+public class NotificationApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
 
 }

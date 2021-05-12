@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import ru.dlyubanevich.offerprocessingservice.domain.nomenclature.Nomenclature;
 import ru.dlyubanevich.offerprocessingservice.domain.offer.OfferOption;
+import ru.dlyubanevich.offerprocessingservice.domain.offer.OfferRequest;
 import ru.dlyubanevich.offerprocessingservice.domain.offer.Requirement;
 import ru.dlyubanevich.offerprocessingservice.domain.other.Location;
 import ru.dlyubanevich.offerprocessingservice.domain.other.User;
@@ -22,8 +23,21 @@ public class DataRequest {
     private String description;
     private List<Requirement> requirements;
 
-    public List<Nomenclature> getItems(){
+    public OfferRequest transformToOfferRequest(){
+        OfferRequest offerRequest = new OfferRequest();
+        offerRequest.setDescription(description);
+        offerRequest.setItems(getItems());
+        offerRequest.setLocation(location);
+        offerRequest.setOption(option);
+        offerRequest.setUser(user);
+        offerRequest.setType(type);
+        offerRequest.setRequirements(requirements);
+        return offerRequest;
+    }
+
+    private List<Nomenclature> getItems(){
         items.forEach(nomenclature -> nomenclature.setOwner(user));
         return items;
     }
+
 }

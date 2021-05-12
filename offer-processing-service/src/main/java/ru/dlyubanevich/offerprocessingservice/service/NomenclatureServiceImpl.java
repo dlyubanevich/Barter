@@ -5,8 +5,8 @@ import org.springframework.stereotype.Service;
 import ru.dlyubanevich.offerprocessingservice.domain.nomenclature.Nomenclature;
 import ru.dlyubanevich.offerprocessingservice.feign.NomenclatureServiceFeignClient;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -16,16 +16,8 @@ public class NomenclatureServiceImpl implements NomenclatureService {
 
     @Override
     public List<Nomenclature> addItems(List<Nomenclature> items) {
-        List<Nomenclature> nomenclatures = new ArrayList<>();
-        for (Nomenclature nomenclature : items) {
-            Nomenclature newItem;
-            if (nomenclature.isAddableToUserNomenclature()) {
-                newItem = nomenclatureServiceFeignClient.addUserNomenclature(nomenclature);
-            } else {
-                newItem = nomenclatureServiceFeignClient.addNomenclature(nomenclature);
-            }
-            nomenclatures.add(newItem);
-        }
-        return nomenclatures;
+        return items.stream()
+                .map(nomenclatureServiceFeignClient::addNomenclature)
+                .collect(Collectors.toList());
     }
 }

@@ -11,6 +11,5 @@ public class UserDetails {
 
     private double rating;
     private int bonusAccount;
-    private String avatar;
 
 }

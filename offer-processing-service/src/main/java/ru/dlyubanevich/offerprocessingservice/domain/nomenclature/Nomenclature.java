@@ -18,6 +18,5 @@ public class Nomenclature {
     private List<String> photos;
     private String type;
     private String description;
-    private boolean isAddableToUserNomenclature;
 
 }

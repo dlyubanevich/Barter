@@ -20,16 +20,6 @@ public class NomenclatureController {
         return totalService.addNomenclature(nomenclature, false);
     }
 
-    @PostMapping("/api/v1/nomenclature/user")
-    public Nomenclature addUserNomenclature(@RequestBody Nomenclature nomenclature){
-        return totalService.addNomenclature(nomenclature, true);
-    }
-
-    @GetMapping("/api/v1/nomenclature/user")
-    List<Nomenclature> getAllUserNomenclature(String userId){
-        return totalService.getAllUserNomenclature(userId);
-    }
-
     @PostMapping("/api/v1/nomenclature/option")
     public NomenclatureOption addNomenclatureOption(@RequestBody NomenclatureOption option){
         return totalService.addNomenclatureOption(option);
