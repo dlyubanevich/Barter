@@ -16,13 +16,12 @@ public class Deal {
 
     @Id
     private String id;
+    private int number;
     private LocalDateTime dateTime;
-    private long number;
     private Location location;
     private User initiator;
     private User partner;
-    private String offerRequestId;
-    private String offerResponseId;
-    private Status status;
+    private OfferRequest offerRequest;
+    private OfferResponse offerResponse;
 
 }

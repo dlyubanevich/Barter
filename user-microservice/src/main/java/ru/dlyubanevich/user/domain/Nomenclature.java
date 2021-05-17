@@ -1,15 +1,17 @@
 package ru.dlyubanevich.user.domain;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
-@Getter
+@Data
+@NoArgsConstructor
 public class Nomenclature {
 
-    private final String id;
-    private final String name;
-    private final NomenclatureOption option;
-    private final String type;
+    private String id;
+    private String name;
+    private NomenclatureOption option;
+    private String type;
 
 }

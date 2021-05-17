@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import ru.dlyubanevich.offer.model.offer.OfferResponseModel;
 
 import java.util.List;
 
@@ -24,4 +25,11 @@ public class OfferResponse {
     private String description;
     private String discussionId;
 
+    public OfferResponse(OfferResponseModel model){
+        this.description = model.getDescription();
+        this.location = model.getLocation();
+        this.option = model.getOption();
+        this.user = model.getUser();
+        this.offerRequestId = model.getOfferRequestId();
+    }
 }

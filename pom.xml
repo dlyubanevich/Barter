@@ -13,7 +13,6 @@
     <modules>
         <module>config-server</module>
         <module>discovery-server</module>
-        <module>offer-processing-service</module>
         <module>user-microservice</module>
         <module>deal-microservice</module>
         <module>offer-microservice</module>

@@ -1,9 +1,6 @@
 package ru.dlyubanevich.notification.config;
 
-import org.springframework.amqp.core.Binding;
-import org.springframework.amqp.core.BindingBuilder;
-import org.springframework.amqp.core.Queue;
-import org.springframework.amqp.core.TopicExchange;
+import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.context.annotation.Bean;
@@ -14,7 +11,9 @@ public class RabbitMQConfig {
 
     public static final String EXCHANGE_NAME = "barter-exchange";
     public static final String USER_SETTINGS_QUEUE = "user-settings-queue";
-    public static final String OFFER_ACTIVITY_QUEUE = "offer-activity-queue";
+    public static final String OFFER_REQUEST_ACTIVITY_QUEUE = "offer-request-activity-queue";
+    public static final String OFFER_RESPONSE_ACTIVITY_QUEUE = "offer-response-activity-queue";
+    public static final String DEAL_ACTIVITY_QUEUE = "deal-activity-queue";
 
     @Bean
     public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory) {
@@ -24,8 +23,8 @@ public class RabbitMQConfig {
     }
 
     @Bean
-    public TopicExchange topicExchange(){
-        return new TopicExchange(EXCHANGE_NAME);
+    public DirectExchange directExchange(){
+        return new DirectExchange(EXCHANGE_NAME);
     }
 
     @Bean
@@ -34,21 +33,46 @@ public class RabbitMQConfig {
     }
 
     @Bean
-    public Queue offerActivityQueue() {
-        return new Queue(OFFER_ACTIVITY_QUEUE);
+    public Queue offerRequestActivityQueue() {
+        return new Queue(OFFER_REQUEST_ACTIVITY_QUEUE);
+    }
+
+    @Bean
+    public Queue offerResponseActivityQueue() {
+        return new Queue(OFFER_RESPONSE_ACTIVITY_QUEUE);
+    }
+
+    @Bean
+    public Queue dealActivityQueue() {
+        return new Queue(DEAL_ACTIVITY_QUEUE);
     }
 
     @Bean
     public Binding userSettingBinding(){
         return BindingBuilder.bind(userSettingsQueue())
-                .to(topicExchange())
+                .to(directExchange())
                 .with("notification.user");
     }
 
     @Bean
-    public Binding offerActivityBinding(){
-        return BindingBuilder.bind(offerActivityQueue())
-                .to(topicExchange())
-                .with("notification.offer");
+    public Binding offerRequestActivityBinding(){
+        return BindingBuilder.bind(offerRequestActivityQueue())
+                .to(directExchange())
+                .with("notification.offer.request");
     }
+
+    @Bean
+    public Binding offerResponseActivityBinding(){
+        return BindingBuilder.bind(offerResponseActivityQueue())
+                .to(directExchange())
+                .with("notification.offer.response");
+    }
+
+    @Bean
+    public Binding DealActivityBinding(){
+        return BindingBuilder.bind(dealActivityQueue())
+                .to(directExchange())
+                .with("notification.deal");
+    }
+
 }

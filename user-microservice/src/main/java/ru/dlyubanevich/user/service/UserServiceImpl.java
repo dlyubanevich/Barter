@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.dlyubanevich.user.domain.Nomenclature;
 import ru.dlyubanevich.user.domain.User;
 import ru.dlyubanevich.user.domain.UserDetails;
-import ru.dlyubanevich.user.models.UserData;
+import ru.dlyubanevich.user.models.UserDataModel;
 import ru.dlyubanevich.user.repository.UserRepository;
 import ru.dlyubanevich.user.service.exception.UserNotFoundException;
 
@@ -16,34 +16,31 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService{
 
-    private final UserRepository userRepository;
-    private final MessageService messageService;
+    private final UserRepository repository;
 
     @Transactional
     @Override
-    public User save(UserData userData) {
-        User user = userRepository.save(userData.getUser());
-        sendMessagesIfNecessary(user, userData);
-        return user;
+    public User save(UserDataModel userData) {
+        return repository.save(userData.getUser());
     }
 
     @Transactional(readOnly = true)
     @Override
     public List<User> getAll() {
-        return userRepository.findAll();
+        return repository.findAll();
     }
 
     @Transactional(readOnly = true)
     @Override
     public User findById(String id) {
-        return userRepository.findById(id)
-                .orElseThrow(() -> {throw new UserNotFoundException("There is no User by id " + id);});
+        return repository.findById(id)
+                .orElseThrow(() -> {throw new UserNotFoundException(id);});
     }
 
     @Transactional
     @Override
     public void delete(String id) {
-        userRepository.deleteById(id);
+        repository.deleteById(id);
     }
 
     @Transactional
@@ -51,7 +48,7 @@ public class UserServiceImpl implements UserService{
     public void addUserDetails(String id, UserDetails details) {
         User user = findById(id);
         user.setDetails(details);
-        userRepository.save(user);
+        repository.save(user);
     }
 
     @Transactional
@@ -59,7 +56,7 @@ public class UserServiceImpl implements UserService{
     public void addUserAvatar(String id, String avatar) {
         User user = findById(id);
         user.setAvatar(avatar);
-        userRepository.save(user);
+        repository.save(user);
     }
 
     @Transactional
@@ -67,30 +64,23 @@ public class UserServiceImpl implements UserService{
     public void addUserNomenclature(String id, List<Nomenclature> items) {
         User user = findById(id);
         items.forEach(item -> user.getItems().add(item));
-        userRepository.save(user);
+        repository.save(user);
     }
 
     @Transactional
     @Override
-    public void update(String id, UserData userData) {
-        User user = updateUser(id, userData);
-        sendMessagesIfNecessary(user, userData);
+    public User update(String id, UserDataModel userData) {
+        User user = getUserWithUpdatedFields(id, userData);
+        return repository.save(user);
     }
 
-    private void sendMessagesIfNecessary(User user, UserData userData) {
-        if (userData.getPhoto() != null) {
-            messageService.sendPhotoMessage(user.getId(), userData.getPhoto());
-        }
-        messageService.sendNotificationMessage(user);
-    }
-
-    private User updateUser(String id, UserData userData) {
+    private User getUserWithUpdatedFields(String id, UserDataModel userData) {
         User user = findById(id);
         user.setName(userData.getName());
         user.setPhoneNumber(userData.getPhoneNumber());
         user.setEmail(userData.getEmail());
         user.setGender(userData.getGender());
         user.getSettings().setSubscription(userData.getSubscription());
-        return userRepository.save(user);
+        return user;
     }
 }

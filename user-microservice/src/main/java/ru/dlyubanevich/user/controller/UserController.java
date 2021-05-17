@@ -5,7 +5,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.dlyubanevich.user.domain.User;
 import ru.dlyubanevich.user.domain.UserDetails;
-import ru.dlyubanevich.user.models.UserData;
+import ru.dlyubanevich.user.models.FileModel;
+import ru.dlyubanevich.user.models.UserDataModel;
+import ru.dlyubanevich.user.service.MessageService;
 import ru.dlyubanevich.user.service.UserService;
 
 import java.util.List;
@@ -15,10 +17,13 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
+    private final MessageService messageService;
 
     @PostMapping("/api/v1/user")
-    public User addUser(@RequestBody UserData userData) {
-        return userService.save(userData);
+    public User addUser(@RequestBody UserDataModel userData) {
+        User user = userService.save(userData);
+        sendMessages(user, userData.getPhoto());
+        return user;
     }
 
     @GetMapping("/api/v1/user")
@@ -32,8 +37,9 @@ public class UserController {
     }
 
     @PutMapping("/api/v1/user/{id}")
-    public void updateUser(@PathVariable String id, @RequestBody UserData userData) {
-        userService.update(id, userData);
+    public void updateUser(@PathVariable String id, @RequestBody UserDataModel userData) {
+        User user = userService.update(id, userData);
+        sendMessages(user, userData.getPhoto());
     }
 
     @DeleteMapping("/api/v1/user/{id}")
@@ -46,4 +52,8 @@ public class UserController {
         return ResponseEntity.badRequest().body(ex.getMessage());
     }
 
+    private void sendMessages(User user, FileModel photo){
+        messageService.sendPhotoMessage(user.getId(), photo);
+        messageService.sendNotificationMessage(user);
+    }
 }

@@ -10,5 +10,7 @@ public interface OfferRequestService {
     OfferRequest save(OfferRequest offerRequest);
     List<OfferRequest> getAllByUser(User user);
     List<OfferRequest> findAllActiveOffers();
+    OfferRequest findById(String id);
+    User getOwnerRequest(String id);
 
 }

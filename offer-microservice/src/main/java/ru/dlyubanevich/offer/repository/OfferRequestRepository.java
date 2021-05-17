@@ -10,4 +10,6 @@ public interface OfferRequestRepository extends MongoRepository<OfferRequest, St
     List<OfferRequest> findAllByUserId(String userId);
     List<OfferRequest> findAllByStatusIn(List<String> statuses);
 
+    //TODO Добавить получение из БД только ownerRequest
+
 }

@@ -8,5 +8,6 @@ public interface OfferResponseService {
     
     OfferResponse save(OfferResponse offerResponse);
     List<OfferResponse> getAllByOfferRequestId(String offerRequestId);
-    
+    OfferResponse findById(String id);
+
 }

@@ -6,14 +6,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
 import ru.dlyubanevich.notification.domain.Subscription;
-import ru.dlyubanevich.notification.models.OfferModel;
+import ru.dlyubanevich.notification.models.DataOfferRequest;
+import ru.dlyubanevich.notification.models.DataOfferResponse;
 import ru.dlyubanevich.notification.service.SubscriptionService;
 import ru.dlyubanevich.notification.service.TotalService;
 
 import java.util.logging.Logger;
 
-import static ru.dlyubanevich.notification.config.RabbitMQConfig.OFFER_ACTIVITY_QUEUE;
-import static ru.dlyubanevich.notification.config.RabbitMQConfig.USER_SETTINGS_QUEUE;
+import static ru.dlyubanevich.notification.config.RabbitMQConfig.*;
 
 @Service
 @RequiredArgsConstructor
@@ -23,7 +23,7 @@ public class RabbitMQListener {
     private final SubscriptionService subscriptionService;
     private final ObjectMapper objectMapper;
 
-    private Logger logger = Logger.getLogger("RabbitMQListener");
+    private final Logger logger = Logger.getLogger("RabbitMQListener");
 
     @RabbitListener(queues = USER_SETTINGS_QUEUE)
     public void handleUserSettings(String message) throws JsonProcessingException {
@@ -44,11 +44,25 @@ public class RabbitMQListener {
         savedSubscription.setUsersId(subscription.getUsersId());
     }
 
-    @RabbitListener(queues = OFFER_ACTIVITY_QUEUE)
-    public void handleOfferActivity(String message) throws JsonProcessingException{
-        logger.info("RECEIVED from offer-activity-queue: " + message);
-        OfferModel offerModel = objectMapper.readValue(message, OfferModel.class);
-        totalService.addNotifications(offerModel.getOffer());
+    @RabbitListener(queues = OFFER_REQUEST_ACTIVITY_QUEUE)
+    public void handleOfferRequestActivity(String message) throws JsonProcessingException{
+        logger.info("RECEIVED from offer-request-activity-queue: " + message);
+        DataOfferRequest dataOfferRequest = objectMapper.readValue(message, DataOfferRequest.class);
+        totalService.addOfferRequestNotifications(dataOfferRequest);
+    }
+
+    @RabbitListener(queues = OFFER_RESPONSE_ACTIVITY_QUEUE)
+    public void handleOfferResponseActivity(String message) throws JsonProcessingException{
+        logger.info("RECEIVED from offer-response-activity-queue: " + message);
+        DataOfferResponse dataOfferResponse = objectMapper.readValue(message, DataOfferResponse.class);
+        totalService.addOfferResponseNotifications(dataOfferResponse);
+    }
+
+    @RabbitListener(queues = DEAL_ACTIVITY_QUEUE)
+    public void handleDealActivity(String message) throws JsonProcessingException{
+        logger.info("RECEIVED from deal-activity-queue: " + message);
+
+
     }
 
 }

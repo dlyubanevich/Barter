@@ -11,10 +11,10 @@
 	</parent>
 
 	<groupId>ru.dlyubanevich</groupId>
-	<artifactId>offer-processing-service</artifactId>
+	<artifactId>offerRequest-processing-service</artifactId>
 	<version>0.0.1</version>
-	<name>offer-processing-service</name>
-	<description>Service for offer processing</description>
+	<name>offerRequest-processing-service</name>
+	<description>Service for offerRequest processing</description>
 
 	<properties>
 		<java.version>11</java.version>

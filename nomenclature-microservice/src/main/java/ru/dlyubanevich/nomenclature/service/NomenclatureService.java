@@ -9,6 +9,6 @@ public interface NomenclatureService {
 
     Nomenclature save(Nomenclature nomenclature);
     List<Nomenclature> getAllByOwner(User user);
-    List<Nomenclature> getAll(List<String> ids);
+    Nomenclature getById(String id);
 
 }

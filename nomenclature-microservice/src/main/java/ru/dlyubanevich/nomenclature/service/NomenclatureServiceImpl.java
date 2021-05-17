@@ -27,8 +27,9 @@ public class NomenclatureServiceImpl implements NomenclatureService {
         return repository.findAllByOwnerId(user.getId());
     }
 
+    @Transactional(readOnly = true)
     @Override
-    public List<Nomenclature> getAll(List<String> ids) {
-        return repository.findAllByIdIn(ids);
+    public Nomenclature getById(String id) {
+        return repository.findById(id).orElseThrow();
     }
 }

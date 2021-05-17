@@ -3,11 +3,10 @@ package ru.dlyubanevich.user.messagelistener;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
-import ru.dlyubanevich.user.models.UserAvatar;
-import ru.dlyubanevich.user.models.UserNomenclature;
+import ru.dlyubanevich.user.models.UserAvatarModel;
+import ru.dlyubanevich.user.models.UserNomenclatureModel;
 import ru.dlyubanevich.user.service.UserService;
 
 import java.util.logging.Logger;
@@ -21,22 +20,21 @@ public class RabbitMQListener{
 
     private final ObjectMapper objectMapper;
     private final UserService userService;
+    private final Logger logger = Logger.getLogger("RabbitMQListener");
 
-    private Logger logger = Logger.getLogger("RabbitMQListener");
-
-    @SneakyThrows
     @RabbitListener(queues = PHOTO_ACTIVITY_QUEUE)
-    public void setUserAvatar(String message){
+    public void setUserAvatar(String message) throws JsonProcessingException{
         logger.info("RECEIVED from photo-activity-queue: " + message);
-        UserAvatar data = objectMapper.readValue(message, UserAvatar.class);
-        userService.addUserAvatar(data.getUserId(), data.getUrl());
+        UserAvatarModel data = objectMapper.readValue(message, UserAvatarModel.class);
+        if (data.getItems() != null && data.getItems().size() > 0) {
+            userService.addUserAvatar(data.getOwnerId(), data.getItems().get(0));
+        }
     }
 
-    @SneakyThrows
     @RabbitListener(queues = NOMENCLATURE_ACTIVITY_QUEUE)
-    public void setUserItems(String message){
+    public void setUserItems(String message) throws JsonProcessingException{
         logger.info("RECEIVED from nomenclature-activity-queue: " + message);
-        UserNomenclature data = objectMapper.readValue(message, UserNomenclature.class);
-        userService.addUserNomenclature(data.getId(), data.getItems());
+        UserNomenclatureModel data = objectMapper.readValue(message, UserNomenclatureModel.class);
+        userService.addUserNomenclature(data.getUserId(), data.getItems());
     }
 }

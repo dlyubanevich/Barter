@@ -14,23 +14,35 @@ import java.util.List;
 @AllArgsConstructor
 public class OfferRequestServiceImpl implements OfferRequestService{
 
-    private final OfferRequestRepository offerRequestRepository;
+    private final OfferRequestRepository repository;
 
     @Transactional
     @Override
     public OfferRequest save(OfferRequest offerRequest) {
-        return offerRequestRepository.save(offerRequest);
+        return repository.save(offerRequest);
     }
 
     @Transactional(readOnly = true)
     @Override
     public List<OfferRequest> getAllByUser(User user) {
-        return offerRequestRepository.findAllByUserId(user.getId());
+        return repository.findAllByUserId(user.getId());
     }
 
     @Transactional(readOnly = true)
     @Override
     public List<OfferRequest> findAllActiveOffers() {
-        return offerRequestRepository.findAllByStatusIn(Status.getAllActiveStatuses());
+        return repository.findAllByStatusIn(Status.getAllActiveStatuses());
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public OfferRequest findById(String id) {
+        return repository.findById(id).orElseThrow();
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public User getOwnerRequest(String id) {
+        return repository.findById(id).orElseThrow().getUser();
     }
 }

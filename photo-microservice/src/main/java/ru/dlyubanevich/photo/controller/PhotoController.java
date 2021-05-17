@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import ru.dlyubanevich.photo.model.FileModel;
 import ru.dlyubanevich.photo.service.PhotoService;
 
 @RequiredArgsConstructor
@@ -15,9 +16,8 @@ public class PhotoController {
     private final PhotoService photoService;
 
     @PostMapping("/api/v1/photo")
-    public String upload(@RequestBody String photo){
-        byte[] bytes = photoService.convert(photo);
-        return photoService.load(bytes);
+    public String upload(@RequestBody FileModel fileModel){
+        return photoService.uploadFile(fileModel);
     }
 
     @ExceptionHandler(Exception.class)

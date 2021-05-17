@@ -12,23 +12,23 @@ import java.util.List;
 @AllArgsConstructor
 public class OfferOptionServiceImpl implements OfferOptionService {
 
-    private final OfferOptionRepository offerOptionRepository;
+    private final OfferOptionRepository repository;
 
     @Transactional
     @Override
     public OfferOption save(OfferOption offerOption) {
-        return offerOptionRepository.save(offerOption);
+        return repository.save(offerOption);
     }
 
     @Transactional(readOnly = true)
     @Override
     public List<OfferOption> getAll() {
-        return offerOptionRepository.findAll();
+        return repository.findAll();
     }
 
     @Transactional
     @Override
     public void deleteById(String id) {
-        offerOptionRepository.deleteById(id);
+        repository.deleteById(id);
     }
 }

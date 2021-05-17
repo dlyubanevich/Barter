@@ -12,6 +12,8 @@ public class RabbitMQConfig {
     public static final String EXCHANGE_NAME = "barter-exchange";
     public static final String PHOTO_ACTIVITY_QUEUE = "photo-activity-queue";
     public static final String NOMENCLATURE_ACTIVITY_QUEUE = "nomenclature-activity-queue";
+    private static final String ROUTING_KEY_USER_AVATAR = "user.avatar";
+    private static final String ROUTING_KEY_USER_ITEMS = "user.items";
 
     @Bean
     public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory) {
@@ -40,7 +42,7 @@ public class RabbitMQConfig {
         return BindingBuilder
                 .bind(photoActivityQueue())
                 .to(directExchange())
-                .with("user.avatar");
+                .with(ROUTING_KEY_USER_AVATAR);
     }
 
     @Bean
@@ -48,7 +50,7 @@ public class RabbitMQConfig {
         return BindingBuilder
                 .bind(nomenclatureActivityQueue())
                 .to(directExchange())
-                .with("user.items");
+                .with(ROUTING_KEY_USER_ITEMS);
     }
 
 

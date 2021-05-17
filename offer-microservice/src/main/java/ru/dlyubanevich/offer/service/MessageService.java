@@ -1,10 +1,12 @@
 package ru.dlyubanevich.offer.service;
 
-import ru.dlyubanevich.offer.domain.Message;
+import ru.dlyubanevich.offer.domain.OfferRequest;
+import ru.dlyubanevich.offer.domain.OfferResponse;
+import ru.dlyubanevich.offer.domain.User;
 
 public interface MessageService {
 
-    Message save(Message message);
-    void deleteById(String id);
+    void sendOfferRequestNotificationMessage(OfferRequest offerRequest);
+    void sendOfferResponseNotificationMessage(User ownerRequest, OfferResponse offerResponse);
 
 }

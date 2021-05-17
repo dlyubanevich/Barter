@@ -1,0 +1,10 @@
+logging:
+  level:
+    root: ERROR
+
+eureka:
+  client:
+    enabled: false
+
+authorization: OAuth AQAAAAAF2d5UAAccbcencDF2MUq7sQBNjg07W4U
+address: https://cloud-api.yandex.net/v1/disk/resources/upload

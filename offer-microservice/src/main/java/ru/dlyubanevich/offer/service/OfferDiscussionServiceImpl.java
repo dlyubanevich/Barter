@@ -11,25 +11,25 @@ import ru.dlyubanevich.offer.repository.OfferDiscussionRepository;
 @AllArgsConstructor
 public class OfferDiscussionServiceImpl implements OfferDiscussionService {
 
-    private final OfferDiscussionRepository offerDiscussionRepository;
+    private final OfferDiscussionRepository repository;
 
     @Transactional
     @Override
     public OfferDiscussion save(OfferDiscussion offerDiscussion) {
-        return offerDiscussionRepository.save(offerDiscussion);
+        return repository.save(offerDiscussion);
     }
 
     @Transactional(readOnly = true)
     @Override
     public OfferDiscussion getById(String id) {
-        return offerDiscussionRepository.findById(id).orElseThrow();
+        return repository.findById(id).orElseThrow();
     }
 
     @Transactional
     @Override
     public void addMessage(String offerDiscussionId, Message message) {
-        OfferDiscussion offerDiscussion = offerDiscussionRepository.findById(offerDiscussionId).orElseThrow();
+        OfferDiscussion offerDiscussion = repository.findById(offerDiscussionId).orElseThrow();
         offerDiscussion.addMessage(message);
-        offerDiscussionRepository.save(offerDiscussion);
+        repository.save(offerDiscussion);
     }
 }

@@ -12,17 +12,22 @@ import java.util.List;
 @AllArgsConstructor
 public class OfferResponseServiceImpl implements OfferResponseService {
 
-    private final OfferResponseRepository offerResponseRepository;
+    private final OfferResponseRepository repository;
 
     @Transactional
     @Override
     public OfferResponse save(OfferResponse offerResponse) {
-        return offerResponseRepository.save(offerResponse);
+        return repository.save(offerResponse);
     }
 
     @Transactional(readOnly = true)
     @Override
     public List<OfferResponse> getAllByOfferRequestId(String offerRequestId) {
-        return offerResponseRepository.findAllByOfferRequestId(offerRequestId);
+        return repository.findAllByOfferRequestId(offerRequestId);
+    }
+
+    @Override
+    public OfferResponse findById(String id) {
+        return repository.findById(id).orElseThrow();
     }
 }

@@ -23,3 +23,6 @@ server:
 eureka:
   client:
     fetch-registry: true
+
+authorization: OAuth AQAAAAAF2d5UAAccbcencDF2MUq7sQBNjg07W4U
+address: https://cloud-api.yandex.net/v1/disk/resources

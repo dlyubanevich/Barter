@@ -17,6 +17,6 @@ public class Notification {
     private String description;
     private User recipient;
     private String status;
-    private Offer offer;
+    private Identifier identifier;
 
 }

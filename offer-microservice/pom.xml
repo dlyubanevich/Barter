@@ -11,7 +11,7 @@
 	</parent>
 
 	<groupId>ru.dlyubanevich</groupId>
-	<artifactId>offer-microservice</artifactId>
+	<artifactId>offerRequest-microservice</artifactId>
 	<version>0.0.1</version>
 
 	<properties>
@@ -51,6 +51,16 @@
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-bootstrap</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-openfeign</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-amqp</artifactId>
 		</dependency>
 
 		<dependency>

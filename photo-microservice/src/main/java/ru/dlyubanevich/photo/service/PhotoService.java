@@ -1,8 +1,9 @@
 package ru.dlyubanevich.photo.service;
 
+import ru.dlyubanevich.photo.model.FileModel;
+
 public interface PhotoService {
 
-    byte[] convert(String photo);
-    String load(byte[] bytes);
+    String uploadFile(FileModel file);
 
 }
