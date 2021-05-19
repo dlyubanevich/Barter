@@ -1,10 +1,13 @@
 package ru.dlyubanevich.nomenclature.service;
 
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.dlyubanevich.nomenclature.domain.*;
+import ru.dlyubanevich.nomenclature.domain.Nomenclature;
+import ru.dlyubanevich.nomenclature.domain.NomenclatureOption;
+import ru.dlyubanevich.nomenclature.domain.OptionProperty;
+import ru.dlyubanevich.nomenclature.domain.Type;
+import ru.dlyubanevich.nomenclature.dto.NomenclatureDto;
 import ru.dlyubanevich.nomenclature.model.NomenclatureModel;
 
 import java.util.List;
@@ -22,11 +25,11 @@ public class ProcessingServiceImpl implements ProcessingService {
 
     @Transactional
     @Override
-    public Nomenclature addNomenclature(NomenclatureModel nomenclatureModel) {
-        Nomenclature savedItem = nomenclatureService.save(new Nomenclature(nomenclatureModel));
-        messageService.sendUserNomenclatureMessage(savedItem, nomenclatureModel);
-        messageService.sendPhotoMessage(savedItem.getId(), nomenclatureModel);
-        return savedItem;
+    public NomenclatureDto addNomenclature(NomenclatureModel nomenclatureModel) {
+        Nomenclature nomenclature = nomenclatureService.save(new Nomenclature(nomenclatureModel));
+        messageService.sendUserNomenclatureMessage(nomenclature, nomenclatureModel);
+        messageService.sendPhotoMessage(nomenclature.getId(), nomenclatureModel);
+        return new NomenclatureDto(nomenclature);
     }
 
     @Transactional(readOnly = true)

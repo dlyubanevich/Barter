@@ -1,4 +1,4 @@
-package ru.dlyubanevich.offer.domain;
+package ru.dlyubanevich.offer.model.nomenclature;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,9 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Location {
+public class FileModel {
 
-    private String id;
     private String name;
+    private String codedBytes;
 
 }

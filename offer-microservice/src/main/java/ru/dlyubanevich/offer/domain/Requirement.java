@@ -1,13 +1,16 @@
 package ru.dlyubanevich.offer.domain;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import ru.dlyubanevich.offer.model.nomenclature.NomenclatureOptionModel;
 
-@Getter
+@Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class Requirement {
 
-    private final NomenclatureOptionModel option;
-    private final String description;
+    private NomenclatureOptionModel option;
+    private String description;
+
 }

@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.dlyubanevich.nomenclature.domain.Nomenclature;
 import ru.dlyubanevich.nomenclature.domain.NomenclatureOption;
 import ru.dlyubanevich.nomenclature.domain.OptionProperty;
+import ru.dlyubanevich.nomenclature.dto.NomenclatureDto;
 import ru.dlyubanevich.nomenclature.model.NomenclatureModel;
 import ru.dlyubanevich.nomenclature.service.ProcessingService;
 
@@ -17,7 +18,7 @@ public class NomenclatureController {
     private final ProcessingService processingService;
 
     @PostMapping("/api/v1/nomenclature")
-    public Nomenclature addNomenclature(@RequestBody NomenclatureModel nomenclatureModel){
+    public NomenclatureDto addNomenclature(@RequestBody NomenclatureModel nomenclatureModel){
         return processingService.addNomenclature(nomenclatureModel);
     }
 

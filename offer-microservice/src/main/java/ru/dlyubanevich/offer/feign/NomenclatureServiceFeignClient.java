@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import ru.dlyubanevich.offer.domain.Nomenclature;
 import ru.dlyubanevich.offer.model.nomenclature.NomenclatureModel;
 
-@FeignClient(name = "nomenclatures")
+@FeignClient(name = "nomenclature-microservice")
 public interface NomenclatureServiceFeignClient {
 
     @PostMapping("/api/v1/nomenclature")

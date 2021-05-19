@@ -6,10 +6,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
 import ru.dlyubanevich.notification.domain.Subscription;
-import ru.dlyubanevich.notification.models.DataOfferRequest;
-import ru.dlyubanevich.notification.models.DataOfferResponse;
+import ru.dlyubanevich.notification.models.OfferRequestModel;
+import ru.dlyubanevich.notification.models.OfferResponseModel;
 import ru.dlyubanevich.notification.service.SubscriptionService;
-import ru.dlyubanevich.notification.service.TotalService;
+import ru.dlyubanevich.notification.service.ProcessingService;
 
 import java.util.logging.Logger;
 
@@ -19,7 +19,7 @@ import static ru.dlyubanevich.notification.config.RabbitMQConfig.*;
 @RequiredArgsConstructor
 public class RabbitMQListener {
 
-    private final TotalService totalService;
+    private final ProcessingService processingService;
     private final SubscriptionService subscriptionService;
     private final ObjectMapper objectMapper;
 
@@ -47,15 +47,15 @@ public class RabbitMQListener {
     @RabbitListener(queues = OFFER_REQUEST_ACTIVITY_QUEUE)
     public void handleOfferRequestActivity(String message) throws JsonProcessingException{
         logger.info("RECEIVED from offer-request-activity-queue: " + message);
-        DataOfferRequest dataOfferRequest = objectMapper.readValue(message, DataOfferRequest.class);
-        totalService.addOfferRequestNotifications(dataOfferRequest);
+        OfferRequestModel offerRequestModel = objectMapper.readValue(message, OfferRequestModel.class);
+        processingService.addOfferRequestNotifications(offerRequestModel);
     }
 
     @RabbitListener(queues = OFFER_RESPONSE_ACTIVITY_QUEUE)
     public void handleOfferResponseActivity(String message) throws JsonProcessingException{
         logger.info("RECEIVED from offer-response-activity-queue: " + message);
-        DataOfferResponse dataOfferResponse = objectMapper.readValue(message, DataOfferResponse.class);
-        totalService.addOfferResponseNotifications(dataOfferResponse);
+        OfferResponseModel offerResponseModel = objectMapper.readValue(message, OfferResponseModel.class);
+        processingService.addOfferResponseNotifications(offerResponseModel);
     }
 
     @RabbitListener(queues = DEAL_ACTIVITY_QUEUE)

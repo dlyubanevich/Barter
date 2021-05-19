@@ -6,7 +6,7 @@ import ru.dlyubanevich.notification.domain.User;
 
 @AllArgsConstructor
 @Getter
-public class DataDeal {
+public class DealModel {
 
     private final String id;
     private final User initiator;

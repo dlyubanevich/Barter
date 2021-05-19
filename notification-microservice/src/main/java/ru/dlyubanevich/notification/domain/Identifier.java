@@ -8,4 +8,5 @@ public class Identifier {
     private String offerRequestId;
     private String offerResponseId;
     private String dealId;
+
 }

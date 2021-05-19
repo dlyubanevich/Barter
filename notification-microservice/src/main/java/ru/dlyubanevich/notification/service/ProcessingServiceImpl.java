@@ -4,9 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.dlyubanevich.notification.domain.*;
-import ru.dlyubanevich.notification.models.DataDeal;
-import ru.dlyubanevich.notification.models.DataOfferRequest;
-import ru.dlyubanevich.notification.models.DataOfferResponse;
+import ru.dlyubanevich.notification.models.DealModel;
+import ru.dlyubanevich.notification.models.OfferRequestModel;
+import ru.dlyubanevich.notification.models.OfferResponseModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class TotalServiceImpl implements TotalService {
+public class ProcessingServiceImpl implements ProcessingService {
 
     private static final String OFFER_REQUEST_DESCRIPTION = "Новое предложение!";
     private static final String OFFER_RESPONSE_DESCRIPTION = "Новый ответ на ваше предложение!";
@@ -24,20 +24,20 @@ public class TotalServiceImpl implements TotalService {
     private final SubscriptionService subscriptionService;
 
     @Override
-    public void addOfferRequestNotifications(DataOfferRequest dataOfferRequest) {
+    public void addOfferRequestNotifications(OfferRequestModel offerRequestModel) {
 
-        List<String> optionsId = dataOfferRequest.getNomenclatureOptions().stream()
+        List<String> optionsId = offerRequestModel.getNomenclatureOptions().stream()
                 .map(NomenclatureOption::getId)
                 .collect(Collectors.toList());
         List<Subscription> subscriptions = subscriptionService.getSubscriptions(
-                dataOfferRequest.getUser().getId(),
+                offerRequestModel.getUser().getId(),
                 optionsId,
-                dataOfferRequest.getType());
+                offerRequestModel.getType());
 
         if (subscriptions.size() > 0) {
 
             List<Notification> notifications = subscriptions.stream()
-                .map(subscription -> createOfferRequestNotification(subscription.getOwner(), dataOfferRequest.getId()))
+                .map(subscription -> createOfferRequestNotification(subscription.getOwner(), offerRequestModel.getId()))
                 .collect(Collectors.toList());
 
             notificationService.saveAll(notifications);
@@ -47,20 +47,20 @@ public class TotalServiceImpl implements TotalService {
     }
 
     @Override
-    public void addOfferResponseNotifications(DataOfferResponse dataOfferResponse) {
+    public void addOfferResponseNotifications(OfferResponseModel offerResponseModel) {
         Notification notification = createOfferResponseNotification(
-                dataOfferResponse.getOwnerRequest(),
-                dataOfferResponse.getId()
+                offerResponseModel.getOwnerRequest(),
+                offerResponseModel.getId()
         );
         notificationService.save(notification);
     }
 
     @Transactional
     @Override
-    public void addDealNotifications(DataDeal dataDeal) {
+    public void addDealNotifications(DealModel dealModel) {
         List<Notification> notifications = new ArrayList<>();
-        notifications.add(createDealNotification(dataDeal.getInitiator(), dataDeal.getId()));
-        notifications.add(createDealNotification(dataDeal.getPartner(), dataDeal.getId()));
+        notifications.add(createDealNotification(dealModel.getInitiator(), dealModel.getId()));
+        notifications.add(createDealNotification(dealModel.getPartner(), dealModel.getId()));
         notificationService.saveAll(notifications);
     }
 

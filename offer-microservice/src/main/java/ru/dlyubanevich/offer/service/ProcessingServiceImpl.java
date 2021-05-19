@@ -28,13 +28,12 @@ public class ProcessingServiceImpl implements ProcessingService {
     @Override
     public String addOfferRequest(OfferRequestModel offerRequestModel) {
 
-        String discussionId = addNewDiscussion();
-
         List<NomenclatureModel> modelItems = offerRequestModel.getItems();
-        modelItems.forEach(nomenclature -> nomenclature.setOwner(offerRequestModel.getUser()));
+        modelItems.forEach(itemModel -> itemModel.setOwner(offerRequestModel.getUser()));
 
         List<Nomenclature> items = nomenclatureService.addItems(modelItems);
 
+        String discussionId = addNewDiscussion();
         OfferRequest offerRequest = new OfferRequest(offerRequestModel);
         offerRequest.setDiscussionId(discussionId);
         offerRequest.setItems(items);
@@ -55,13 +54,12 @@ public class ProcessingServiceImpl implements ProcessingService {
     @Override
     public String addOfferResponse(OfferResponseModel offerResponseModel) {
 
-        String discussionId = addNewDiscussion();
-
         List<NomenclatureModel> modelItems = offerResponseModel.getItems();
         modelItems.forEach(nomenclature -> nomenclature.setOwner(offerResponseModel.getUser()));
 
         List<Nomenclature> items = nomenclatureService.addItems(modelItems);
 
+        String discussionId = addNewDiscussion();
         OfferResponse offerResponse = new OfferResponse(offerResponseModel);
         offerResponse.setDiscussionId(discussionId);
         offerResponse.setItems(items);
