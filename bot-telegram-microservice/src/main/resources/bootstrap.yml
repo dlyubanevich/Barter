@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: bot-telegram-microservice
+  cloud:
+    config:
+      fail-fast: true

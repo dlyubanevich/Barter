@@ -18,6 +18,7 @@
         <module>offer-microservice</module>
         <module>nomenclature-microservice</module>
         <module>notification-microservice</module>
+        <module>bot-telegram-microservice</module>
     </modules>
 
 </project>
