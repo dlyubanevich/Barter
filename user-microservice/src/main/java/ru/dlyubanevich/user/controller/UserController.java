@@ -20,10 +20,10 @@ public class UserController {
     private final MessageService messageService;
 
     @PostMapping("/api/v1/user")
-    public User addUser(@RequestBody UserDataModel userData) {
+    public String addUser(@RequestBody UserDataModel userData) {
         User user = userService.save(userData);
         sendMessages(user, userData.getPhoto());
-        return user;
+        return user.getId();
     }
 
     @GetMapping("/api/v1/user")

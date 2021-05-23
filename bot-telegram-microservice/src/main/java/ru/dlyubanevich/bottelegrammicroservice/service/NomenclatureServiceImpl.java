@@ -4,15 +4,23 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.dlyubanevich.bottelegrammicroservice.model.NomenclatureOptionModel;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
-
 public class NomenclatureServiceImpl implements NomenclatureService {
+
+    private final Map<String, NomenclatureOptionModel> options;
+
+    public NomenclatureServiceImpl(){
+        options = new HashMap<>();
+        options.put("Овощи", new NomenclatureOptionModel("1","Овощи"));
+        options.put("Фрукты", new NomenclatureOptionModel("2","Фрукты"));
+    }
 
     @Override
     public Map<String, NomenclatureOptionModel> getNomenclatureOptions() {
-        return null;
+        return options;
     }
 }

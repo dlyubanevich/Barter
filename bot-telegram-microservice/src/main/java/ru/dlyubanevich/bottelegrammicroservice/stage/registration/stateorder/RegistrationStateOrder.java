@@ -16,7 +16,8 @@ public class RegistrationStateOrder implements StateOrder<StateRegistration> {
         orderStates.put(StateRegistration.ASK_USER_NAME, StateRegistration.ASK_PHONE_NUMBER);
         orderStates.put(StateRegistration.ASK_PHONE_NUMBER, StateRegistration.ASK_NOMENCLATURE_OPTION_SUBSCRIPTION);
         orderStates.put(StateRegistration.ASK_NOMENCLATURE_OPTION_SUBSCRIPTION, StateRegistration.ASK_OFFER_TYPE_SUBSCRIPTION);
-        orderStates.put(StateRegistration.ASK_OFFER_TYPE_SUBSCRIPTION, StateRegistration.CONGRATS_WITH_SUCCESS_REGISTRATION);
+        orderStates.put(StateRegistration.ASK_OFFER_TYPE_SUBSCRIPTION, StateRegistration.SAVE_USER_MODEL);
+        orderStates.put(StateRegistration.SAVE_USER_MODEL, StateRegistration.CONGRATS_WITH_SUCCESS_REGISTRATION);
     }
 
     @Override

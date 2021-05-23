@@ -2,13 +2,38 @@ package ru.dlyubanevich.bottelegrammicroservice.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import ru.dlyubanevich.bottelegrammicroservice.domain.User;
+import ru.dlyubanevich.bottelegrammicroservice.feign.UserServiceFeignClient;
+import ru.dlyubanevich.bottelegrammicroservice.model.RegistrationDataModel;
 import ru.dlyubanevich.bottelegrammicroservice.model.UserModel;
+import ru.dlyubanevich.bottelegrammicroservice.repository.UserRepository;
 
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
-    @Override
-    public void save(UserModel userModel) {
 
+    private final UserServiceFeignClient userServiceFeignClient;
+    private final UserRepository repository;
+
+    @Transactional
+    @Override
+    public void saveUser(RegistrationDataModel registrationDataModel) {
+        UserModel userModel = new UserModel(registrationDataModel);
+        String id = userServiceFeignClient.addUser(userModel);
+        User user = new User(
+                id,
+                registrationDataModel.getName(),
+                registrationDataModel.getPhoneNumber(),
+                registrationDataModel.getTelegramId(),
+                registrationDataModel.getChatId()
+        );
+        repository.save(user);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public boolean registrationComplete(Long telegramId) {
+        return repository.existsUserByTelegramId(telegramId);
     }
 }

@@ -20,6 +20,10 @@ management:
       exposure:
         include: "*"
 
+eureka:
+  client:
+    fetch-registry: true
+
 webHookPath: https://10382400ec51.ngrok.io
 botUserName: "@barter2021_bot"
 botToken: 1788232562:AAGLUG5EeJwxbLIirZy3tJcZ6vNuN9I_uRM

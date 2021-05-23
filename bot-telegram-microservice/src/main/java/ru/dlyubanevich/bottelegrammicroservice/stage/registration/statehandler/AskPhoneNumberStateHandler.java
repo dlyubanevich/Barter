@@ -2,28 +2,29 @@ package ru.dlyubanevich.bottelegrammicroservice.stage.registration.statehandler;
 
 import lombok.RequiredArgsConstructor;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.api.objects.Message;
-import ru.dlyubanevich.bottelegrammicroservice.model.UserModel;
+import org.telegram.telegrambots.meta.api.objects.Update;
+import ru.dlyubanevich.bottelegrammicroservice.model.RegistrationDataModel;
 import ru.dlyubanevich.bottelegrammicroservice.stage.StateHandler;
 
 @RequiredArgsConstructor
-public class AskPhoneNumberStateHandler implements StateHandler<UserModel> {
+public class AskPhoneNumberStateHandler implements StateHandler<RegistrationDataModel> {
 
     private static final String TEXT = "Введите, пожалуйста, ваш номер телефона (для связи после согласования сделки):";
 
     @Override
-    public boolean process(UserModel model, Message message) {
-        String phoneNumber = message.getText();
+    public SendMessage buildReplyMessage(RegistrationDataModel model, Update update) {
+        return SendMessage.builder()
+                .chatId(model.getChatId().toString())
+                .text(TEXT)
+                .build();
+    }
+
+    @Override
+    public boolean process(RegistrationDataModel model, Update update) {
+        String phoneNumber = update.getMessage().getText();
         model.setPhoneNumber(phoneNumber);
         return true;
     }
 
-    @Override
-    public SendMessage buildReplyMessage(UserModel model, Message message) {
-        return SendMessage.builder()
-                .chatId(message.getChatId().toString())
-                .text(TEXT)
-                .build();
-    }
 
 }

@@ -12,6 +12,9 @@ public class OfferServiceImpl implements OfferService {
 
     @Override
     public List<String> getOfferTypes() {
-        return new ArrayList<>();
+        List<String> types = new ArrayList<>();
+        types.add("Спрос");
+        types.add("Предложение");
+        return types;
     }
 }

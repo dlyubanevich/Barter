@@ -5,8 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class UserModel {
 
     private String id;
@@ -14,4 +14,9 @@ public class UserModel {
     private String phoneNumber;
     private SubscriptionModel subscription;
 
+    public UserModel(RegistrationDataModel registrationDataModel){
+        this.name = registrationDataModel.getName();
+        this.phoneNumber = registrationDataModel.getPhoneNumber();
+        this.subscription = registrationDataModel.getSubscription();
+    }
 }

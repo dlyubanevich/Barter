@@ -1,7 +1,7 @@
-package ru.dlyubanevich.bottelegrammicroservice.service.stage;
+package ru.dlyubanevich.bottelegrammicroservice.stage.registration.service;
 
 import org.springframework.stereotype.Service;
-import ru.dlyubanevich.bottelegrammicroservice.model.UserModel;
+import ru.dlyubanevich.bottelegrammicroservice.model.RegistrationDataModel;
 import ru.dlyubanevich.bottelegrammicroservice.service.NomenclatureService;
 import ru.dlyubanevich.bottelegrammicroservice.service.OfferService;
 import ru.dlyubanevich.bottelegrammicroservice.service.UserService;
@@ -22,8 +22,8 @@ public class RegistrationStageServiceImpl implements RegistrationStageService {
     private final OfferService offerService;
 
     private final Map<Long, StateRegistration> usersState = new HashMap<>();
-    private final Map<Long, UserModel> usersModels = new HashMap<>();
-    private final Map<StateRegistration, StateHandler<UserModel>> stateHandlers = new HashMap<>();
+    private final Map<Long, RegistrationDataModel> usersModels = new HashMap<>();
+    private final Map<StateRegistration, StateHandler<RegistrationDataModel>> stateHandlers = new HashMap<>();
     private final StateOrder<StateRegistration> stateOrder = new RegistrationStateOrder();
 
     public RegistrationStageServiceImpl(UserService userService, NomenclatureService nomenclatureService, OfferService offerService){
@@ -55,8 +55,12 @@ public class RegistrationStageServiceImpl implements RegistrationStageService {
                 new AskOfferTypeStateHandler(offerService.getOfferTypes())
         );
         stateHandlers.put(
+                StateRegistration.SAVE_USER_MODEL,
+                new SaveUserModelStateHandler(userService)
+        );
+        stateHandlers.put(
                 StateRegistration.CONGRATS_WITH_SUCCESS_REGISTRATION,
-                new SuccessRegistrationMessageHandler(userService)
+                new SuccessRegistrationMessageHandler()
         );
     }
 
@@ -71,10 +75,10 @@ public class RegistrationStageServiceImpl implements RegistrationStageService {
     }
 
     @Override
-    public UserModel addUserModel(Long userId) {
-        UserModel userModel = new UserModel();
-        usersModels.put(userId, userModel);
-        return userModel;
+    public RegistrationDataModel addUserModel(Long userId) {
+        RegistrationDataModel registrationDataModel = new RegistrationDataModel();
+        usersModels.put(userId, registrationDataModel);
+        return registrationDataModel;
     }
 
     @Override
@@ -85,17 +89,17 @@ public class RegistrationStageServiceImpl implements RegistrationStageService {
     }
 
     @Override
-    public UserModel getUserModel(Long userId) {
+    public RegistrationDataModel getUserModel(Long userId) {
         return usersModels.get(userId);
     }
 
     @Override
-    public StateHandler<UserModel> getStateHandler(StateRegistration state) {
+    public StateHandler<RegistrationDataModel> getStateHandler(StateRegistration state) {
         return stateHandlers.get(state);
     }
 
     @Override
-    public StateHandler<UserModel> getCurrentStateHandler(Long userId) {
+    public StateHandler<RegistrationDataModel> getCurrentStateHandler(Long userId) {
         StateRegistration state = getUserState(userId);
         return getStateHandler(state);
     }

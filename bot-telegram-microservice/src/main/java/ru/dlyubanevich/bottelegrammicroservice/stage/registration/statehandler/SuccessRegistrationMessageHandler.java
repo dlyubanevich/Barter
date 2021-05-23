@@ -2,30 +2,25 @@ package ru.dlyubanevich.bottelegrammicroservice.stage.registration.statehandler;
 
 import lombok.RequiredArgsConstructor;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.api.objects.Message;
-import ru.dlyubanevich.bottelegrammicroservice.model.UserModel;
-import ru.dlyubanevich.bottelegrammicroservice.service.UserService;
+import org.telegram.telegrambots.meta.api.objects.Update;
+import ru.dlyubanevich.bottelegrammicroservice.model.RegistrationDataModel;
 import ru.dlyubanevich.bottelegrammicroservice.stage.StateHandler;
 
 @RequiredArgsConstructor
-public class SuccessRegistrationMessageHandler implements StateHandler<UserModel> {
+public class SuccessRegistrationMessageHandler implements StateHandler<RegistrationDataModel> {
 
     private static final String TEXT = "Поздравляю! Вы успешно прошли регистрацию.";
 
-    private final UserService userService;
-
     @Override
-    public boolean process(UserModel model, Message message) {
-        userService.save(model);
-        return true;
-    }
-
-    @Override
-    public SendMessage buildReplyMessage(UserModel model, Message message) {
+    public SendMessage buildReplyMessage(RegistrationDataModel model, Update update) {
         return SendMessage.builder()
-                .chatId(message.getChatId().toString())
+                .chatId(model.getChatId().toString())
                 .text(TEXT)
                 .build();
     }
 
+    @Override
+    public boolean process(RegistrationDataModel model, Update update) {
+        return true;
+    }
 }

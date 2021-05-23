@@ -1,9 +1,10 @@
 package ru.dlyubanevich.bottelegrammicroservice.service;
 
-import ru.dlyubanevich.bottelegrammicroservice.model.UserModel;
+import ru.dlyubanevich.bottelegrammicroservice.model.RegistrationDataModel;
 
 public interface UserService {
 
-    void save(UserModel userModel);
+    void saveUser(RegistrationDataModel registrationDataModel);
+    boolean registrationComplete(Long telegramId);
 
 }
