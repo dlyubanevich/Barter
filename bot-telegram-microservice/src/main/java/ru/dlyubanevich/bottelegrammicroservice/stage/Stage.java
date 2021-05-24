@@ -6,6 +6,8 @@ public enum Stage {
     REGISTRATION,
     OFFER_REQUEST,
     OFFER_RESPONSE,
-    DEAL
+    DEAL,
+    GET_ACTUAL_OFFERS,
+    CHANGE_SUBSCRIPTIONS
 
 }

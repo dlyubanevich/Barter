@@ -64,10 +64,10 @@ public class SaveUserModelStateHandler implements StateHandler<RegistrationDataM
                 + "\n_________________________________"
                 + "\nФИО: " + model.getName()
                 + "\nТелефон: " + model.getPhoneNumber()
-                + "\nИнтересующие виды товаров: " + String.join("", subscriptions.getOfferTypes())
+                + "\nИнтересующие виды товаров: " + String.join(",", subscriptions.getOfferTypes())
                 + "\nИнтересующие виды предложений: " + subscriptions.getNomenclatureOptions().stream()
                     .map(NomenclatureOptionModel::getName)
-                    .collect(Collectors.joining())
+                    .collect(Collectors.joining(","))
                 + "\nВсе верно?";
     }
 

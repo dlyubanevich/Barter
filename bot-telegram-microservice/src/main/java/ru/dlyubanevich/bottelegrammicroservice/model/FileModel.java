@@ -7,9 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserModel {
+public class FileModel {
 
-    private String id;
     private String name;
+    private String codedBytes;
 
 }

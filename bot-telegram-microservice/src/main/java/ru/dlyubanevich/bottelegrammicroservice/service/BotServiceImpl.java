@@ -15,6 +15,8 @@ public class BotServiceImpl implements BotService {
 
     public BotServiceImpl(){
         commands.put("Создать новое предложение", Stage.OFFER_REQUEST);
+        commands.put("Получить актуальные предложения", Stage.GET_ACTUAL_OFFERS);
+        commands.put("Изменить свои подписки", Stage.CHANGE_SUBSCRIPTIONS);
     }
 
     @Override

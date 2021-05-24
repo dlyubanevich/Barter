@@ -7,9 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserModel {
+public class RequirementModel {
 
-    private String id;
-    private String name;
+    private NomenclatureOptionModel option;
+    private String description;
 
 }

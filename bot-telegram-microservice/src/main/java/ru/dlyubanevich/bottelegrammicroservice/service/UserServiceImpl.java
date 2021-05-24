@@ -7,6 +7,7 @@ import ru.dlyubanevich.bottelegrammicroservice.domain.User;
 import ru.dlyubanevich.bottelegrammicroservice.feign.UserServiceFeignClient;
 import ru.dlyubanevich.bottelegrammicroservice.model.RegistrationDataModel;
 import ru.dlyubanevich.bottelegrammicroservice.model.UserModel;
+import ru.dlyubanevich.bottelegrammicroservice.model.UserRegistrationModel;
 import ru.dlyubanevich.bottelegrammicroservice.repository.UserRepository;
 
 @Service
@@ -19,8 +20,8 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public void saveUser(RegistrationDataModel registrationDataModel) {
-        UserModel userModel = new UserModel(registrationDataModel);
-        String id = userServiceFeignClient.addUser(userModel);
+        UserRegistrationModel userRegistrationModel = new UserRegistrationModel(registrationDataModel);
+        String id = userServiceFeignClient.addUser(userRegistrationModel);
         User user = new User(
                 id,
                 registrationDataModel.getName(),
@@ -36,4 +37,12 @@ public class UserServiceImpl implements UserService {
     public boolean registrationComplete(Long telegramId) {
         return repository.existsUserByTelegramId(telegramId);
     }
+
+    //TODO Spring Cache
+    @Override
+    public UserModel getUserByTelegramId(Long telegramId) {
+        User user = repository.findByTelegramId(telegramId);
+        return new UserModel(user.getId(), user.getName());
+    }
+
 }

@@ -6,6 +6,8 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import ru.dlyubanevich.bottelegrammicroservice.stage.Stage;
 import ru.dlyubanevich.bottelegrammicroservice.stage.StageCommunication;
 import ru.dlyubanevich.bottelegrammicroservice.stage.mainmenu.MainMenuStage;
+import ru.dlyubanevich.bottelegrammicroservice.stage.offerRequest.OfferRequestStage;
+import ru.dlyubanevich.bottelegrammicroservice.stage.offerRequest.service.OfferRequestStageService;
 import ru.dlyubanevich.bottelegrammicroservice.stage.registration.RegistrationStage;
 import ru.dlyubanevich.bottelegrammicroservice.stage.registration.service.RegistrationStageService;
 
@@ -21,13 +23,15 @@ public class BotStageHandlerService implements StageHandlerService {
     private final BotService botService;
     private final UserService userService;
 
-    public BotStageHandlerService(BotService botService, RegistrationStageService registrationStageService, UserService userService){
+    public BotStageHandlerService(BotService botService, RegistrationStageService registrationStageService, UserService userService,
+                                  OfferRequestStageService offerRequestStageService){
         this.userService = userService;
         this.botService = botService;
         this.userStage = new HashMap<>();
         this.stageCommunication = new HashMap<>();
         this.stageCommunication.put(Stage.REGISTRATION, new RegistrationStage(registrationStageService));
         this.stageCommunication.put(Stage.MAIN_MENU, new MainMenuStage(botService.getMainMenuItems()));
+        this.stageCommunication.put(Stage.OFFER_REQUEST, new OfferRequestStage(offerRequestStageService));
     }
 
     @Override
