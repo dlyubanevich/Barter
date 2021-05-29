@@ -9,7 +9,7 @@ import ru.dlyubanevich.bottelegrammicroservice.stage.StateHandler;
 @RequiredArgsConstructor
 public class SuccessRegistrationMessageHandler implements StateHandler<RegistrationDataModel> {
 
-    private static final String TEXT = "Поздравляю! Вы успешно прошли регистрацию.";
+    private static final String TEXT = "Поздравляем!\nВы успешно прошли регистрацию.";
 
     @Override
     public SendMessage buildReplyMessage(RegistrationDataModel model, Update update) {

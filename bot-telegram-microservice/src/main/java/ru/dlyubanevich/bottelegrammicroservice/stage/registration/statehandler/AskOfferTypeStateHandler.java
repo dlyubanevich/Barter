@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 public class AskOfferTypeStateHandler implements StateHandler<RegistrationDataModel> {
 
-    private static final String TEXT = "Уведомления о каких видах предложений вы хотите получать?";
+    private static final String TEXT = "Шаг 4 из 4.\nУведомления о каких видах предложений вы хотите получать?";
     private static final String ENOUGH = "Достаточно";
 
     private final ReplyKeyboardMarkup replyMarkup;

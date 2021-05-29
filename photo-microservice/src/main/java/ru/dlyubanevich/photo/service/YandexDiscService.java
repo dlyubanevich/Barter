@@ -28,13 +28,10 @@ public class YandexDiscService implements PhotoService {
 
     @Override
     public String uploadFile(FileModel file) {
-
         initAuthorizationEntity();
         upload(file);
         publish(file);
-
         return getUrl(file);
-
     }
 
     private void initAuthorizationEntity() {

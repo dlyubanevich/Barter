@@ -15,7 +15,7 @@ import java.util.List;
 
 public class GreetingsRegistrationStateHandler implements StateHandler<RegistrationDataModel> {
 
-    private static final String TEXT = "Здравствуйте! Необходимо пройти простую регистрацию. Она займет пару минут.";
+    private static final String TEXT = "Здравствуйте!\nНеобходимо пройти простую регистрацию, состоящую из нескольких шагов.";
     private static final String ANSWER = "Хорошо";
 
     private final ReplyKeyboardMarkup replyMarkup;
@@ -38,8 +38,14 @@ public class GreetingsRegistrationStateHandler implements StateHandler<Registrat
 
     @Override
     public SendMessage buildReplyMessage(RegistrationDataModel model, Update update) {
+        String chatId;
+        if(update.hasMessage()){
+            chatId = update.getMessage().getChatId().toString();
+        }else{
+            chatId = update.getCallbackQuery().getMessage().getChatId().toString();
+        }
         return SendMessage.builder()
-                .chatId(update.getMessage().getChatId().toString())
+                .chatId(chatId)
                 .text(TEXT)
                 .replyMarkup(replyMarkup)
                 .build();

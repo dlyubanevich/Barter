@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 public class AskNomenclatureOptionStateHandler implements StateHandler<RegistrationDataModel> {
 
-    private static final String TEXT = "Уведомления о каких товарах вы хотите получать?";
+    private static final String TEXT = "Шаг 3 из 4.\nУведомления о каких товарах вы хотите получать?";
     private static final String ENOUGH = "Достаточно";
 
     private final ReplyKeyboardMarkup replyMarkup;

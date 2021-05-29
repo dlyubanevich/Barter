@@ -9,7 +9,7 @@ import ru.dlyubanevich.bottelegrammicroservice.stage.StateHandler;
 @RequiredArgsConstructor
 public class AskPhoneNumberStateHandler implements StateHandler<RegistrationDataModel> {
 
-    private static final String TEXT = "Введите, пожалуйста, ваш номер телефона (для связи после согласования сделки):";
+    private static final String TEXT = "Шаг 2 из 4.\nВведите, пожалуйста, ваш номер телефона (для связи после согласования сделки):";
 
     @Override
     public SendMessage buildReplyMessage(RegistrationDataModel model, Update update) {

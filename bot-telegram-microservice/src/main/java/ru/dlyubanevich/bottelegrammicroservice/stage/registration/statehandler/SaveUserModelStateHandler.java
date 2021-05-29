@@ -61,7 +61,7 @@ public class SaveUserModelStateHandler implements StateHandler<RegistrationDataM
     private String getRegistrationData(RegistrationDataModel model) {
         SubscriptionModel subscriptions = model.getSubscription();
         return "Ваши регистрационные данные:"
-                + "\n_________________________________"
+                + "\n___________________________________"
                 + "\nФИО: " + model.getName()
                 + "\nТелефон: " + model.getPhoneNumber()
                 + "\nИнтересующие виды товаров: " + String.join(",", subscriptions.getOfferTypes())
